@@ -4,10 +4,6 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-mailServer = "smtp.gmail.com"
-loginEmail = "collinkleest@gmail.com"
-loginPW = "0809N@n@ruth"
-
 
 def getPhones():
     with open('phones.csv') as csvFile:
@@ -46,6 +42,9 @@ def sendEmail(phone, carrier):
     msg.attach(MIMEText(message, 'plain'))
     s.send_message(msg)
 
-getPhones()
 
-
+if __name__=="__main__":
+    mailServer = "smtp.gmail.com"
+    loginEmail = "collinkleest@gmail.com"
+    loginPW = "0809N@n@ruth"
+    getPhones()
