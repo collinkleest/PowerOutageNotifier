@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 
 
 def getPhones():
-    with open('phones.csv') as csvFile:
+    with open('/home/pi/github_text/PowerOutageNotifier/phones.csv') as csvFile:
         csvReader = csv.reader(csvFile, delimiter=',')
         for row in csvReader:
             phone = row[0]
