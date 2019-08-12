@@ -51,7 +51,7 @@ class Email:
         return msg
 
 if __name__=="__main__":
-    mailServer = "dev1.rajant.com"
-    message = "Malvern Office Power is Out"
-    s = smtplib.SMTP(host=mailServer, port=25)
+    mailServer = "localhost"
+    message = input()
+    s = smtplib.SMTP(host=mailServer, port=1025)
     getPhones()
