@@ -3,16 +3,19 @@ import csv
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
+import os
 
 def getPhones():
-    with open('/home/pi/github_text/PowerOutageNotifier/phones.csv') as csvFile:
+    with open(str(os.getcwd()+"/phones.csv")) as csvFile:
         csvReader = csv.reader(csvFile, delimiter=',')
         for row in csvReader:
             phone = row[0]
             carrier = row[1]
             name = row[2]
-            sendEmail(phone, carrier, name)
+            try:
+                sendEmail(phone, carrier, name)
+            except:
+                pass
 
 
 def getCarrierAddr(carrier):
@@ -51,7 +54,7 @@ class Email:
         return msg
 
 if __name__=="__main__":
-    mailServer = "localhost"
+    mailServer = "172.20.0.50"
     message = input()
-    s = smtplib.SMTP(host=mailServer, port=1025)
+    s = smtplib.SMTP(host=mailServer, port=25)
     getPhones()
