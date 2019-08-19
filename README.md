@@ -10,5 +10,5 @@ After Cloning- Create a service which spawns water.py and checkpower.py. Then st
 
 ##### Pins
 
-Pin 13 : Power Lead 1
+Pin 13 : Power Lead 1 <br>
 Pin 17 : Water monitoring
