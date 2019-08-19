@@ -1,3 +1,5 @@
+# Written by Collin Kleest & Rahul Emani
+# Contact: collinkleest@gmail.com
 # imports
 import csv
 import smtplib
@@ -5,6 +7,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 
+# gets phone numbers from csv file
 def getPhones():
     with open(str(os.getcwd()+"/phones.csv")) as csvFile:
         csvReader = csv.reader(csvFile, delimiter=',')
@@ -12,12 +15,13 @@ def getPhones():
             phone = row[0]
             carrier = row[1]
             name = row[2]
+            # even if connection fails, program will continue to run
             try:
                 sendEmail(phone, carrier, name)
             except:
                 pass
 
-
+# carrier input to SMS gateway output
 def getCarrierAddr(carrier):
     carriers = {
         'verizon': 'vtext.com',
@@ -33,17 +37,19 @@ def getCarrierAddr(carrier):
     }
     return carriers.get(carrier.lower())
 
-
+# sends email
 def sendEmail(phone, carrier, name):
     msg = Email(phone, carrier, name)
     s.send_message(msg.constructEmail())
 
 class Email:
+    # contructor
     def __init__(self, phone, carrier, name):
         self.phone = phone
         self.carrier = carrier
         self.name = name
-
+    
+    # contructs the msg itself
     def constructEmail(self):
         email = (str(self.phone) + '@') + (getCarrierAddr(self.carrier))
         finalmessage = (self.name+': \n'+message)
@@ -54,7 +60,8 @@ class Email:
         return msg
 
 if __name__=="__main__":
-    mailServer = "172.20.0.50"
+    mailServer = "HOSTNAME OF SERVER / IP ADDR"
+    # where the message is written
     message = input()
     s = smtplib.SMTP(host=mailServer, port=25)
     getPhones()

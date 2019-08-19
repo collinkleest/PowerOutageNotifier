@@ -1,20 +1,19 @@
+# Written by Rahul Emani & Collin Kleest
+# Contact: collinkleest@gmail.com
+
+#import library file 
 from lib import *
 
-
-i=[13,19,26,16,20,21]
+# these lists can be extended if more GPIO ports are being utilized 
+# simply add the GPIO number in the 'i' varibale and in the lib array add a message associate with your new number
+i=[13]
 lib={
 '13':' Power Lead 1',
-'19':' Power Lead 2',
-'26':' Power Lead 3', 
-'16':' Generator Lead 1',
-'20':' Generator Lead 2', 
-'21':' Generator Lead 3'}
-
-
-def sendMessage(pin):
-  print("The Power is out on:", pin) 
+}
   
-
+# Checks if the GPIO pin is not recieving voltage (5V or 3.3)
+# A message will generate if the if statements evaluate false
+# Prints message to python console along with syslog  
 def checkPinOff(pin):
   while True:
     if GPIO.input(pin) == 0:
@@ -26,6 +25,9 @@ def checkPinOff(pin):
         os.system('sudo echo ' + initmessage + ' | sudo python3 alert.py' )
         checkPinOn(pin)
 
+# Checks if the pin is recieveing volts (5V or 3.3V)
+# A message will be sent if the first if statement evaluates True && the check pin off function for that specific pin evaultates false
+# Prints message to python console along with syslog
 def checkPinOn(pin):
   while True:
     if GPIO.input(pin):
@@ -37,23 +39,9 @@ def checkPinOn(pin):
         os.system('sudo echo ' + initmessage + ' | sudo python3 alert.py' )
         checkPinOff(pin)
      
+# runs the program and threads for the GPIO pin function
+# Threading is only implemented for mutiple GPIO pins, in this example it isn't required
 if  __name__=="__main__":
     t1 = threading.Thread(target=checkPinOff, args=(i[0],))
-    t2 = threading.Thread(target=checkPinOff, args=(i[1],))
-    t3 = threading.Thread(target=checkPinOff, args=(i[2],))
-    t4 = threading.Thread(target=checkPinOff, args=(i[3],))
-    t5 = threading.Thread(target=checkPinOff, args=(i[4],))
-    t6 = threading.Thread(target=checkPinOff, args=(i[5],))
     t1.start()
-    t2.start()
-    t3.start()
-    t4.start()
-    t5.start()
-    t6.start()
     t1.join()
-    t2.join()
-    t3.join()
-    t4.join()
-    t5.join()
-    t6.join()
-    

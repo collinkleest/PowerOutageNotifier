@@ -1,3 +1,6 @@
+# Written by Rahul Emani & Collin Kleest
+# Contact: collinkleest@gmail.com
+# imports
 import os
 import sys
 import RPi.GPIO as GPIO
@@ -5,9 +8,12 @@ import time
 import datetime
 import logging
 
+# sets up GPIO pin to recieve input
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
+# checks if water is detected
+# actually checks if recieving voltage (3.3V or 5V)
 def CheckWater():
   while True:
     if GPIO.input(17):
