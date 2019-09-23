@@ -1,6 +1,6 @@
 # Raspberry-Pi-Power-Monitor
 ### Authors: Collin Kleest & Rahul Emani
-### Contact: collinkleest@gmail.com
+### Contact: collinkleest@gmail.com or rahulemani@gmail.com
 
 
 ##### Overview
