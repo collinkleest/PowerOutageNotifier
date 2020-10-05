@@ -40,7 +40,7 @@ def checkPinOn(pin):
         checkPinOff(pin)
      
 # runs the program and threads for the GPIO pin function
-# Threading is only implemented for mutiple GPIO pins, in this example it isn't required
+# Threading is only implemented for multiple GPIO pins, in this example it isn't required
 if  __name__=="__main__":
     t1 = threading.Thread(target=checkPinOff, args=(i[0],))
     t1.start()
